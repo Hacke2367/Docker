@@ -1,4 +1,4 @@
-from flask import Flask, render_templates, request
+from flask import Flask, render_template, request  # Fix import
 
 app = Flask(__name__)
 
@@ -9,16 +9,16 @@ def index():
         <body>
             <form action="/greet" method="POST">
                 Enter your name: <input type="text" name="username">
-                <input type="submit" values="submit">
+                <input type="submit" value="Submit">  <!-- Fix `values` to `value` -->
             </form>
         </body>
         </html>
-       
     """
-@app.route('/greet', method=['POST'])
+
+@app.route('/greet', methods=['POST'])  # Fix `method` to `methods`
 def greet():
-    user_input = request.form['username']
-    return f"Hello {user_input}, Welcome to this app for Docker demonstration. please consider like and subscribe to the channel"
+    user_input = request.form.get('username', 'Guest')  # Handle empty input
+    return f"Hello {user_input}, Welcome to this app for Docker demonstration. Please consider liking and subscribing to the channel!"
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
